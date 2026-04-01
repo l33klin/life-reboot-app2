@@ -15,6 +15,19 @@ export function ArticleZh() {
         </a>
       </header>
 
+      <div className="bg-brutal-black text-brutal-white p-6 sm:p-8 my-10 shadow-[8px_8px_0_0_rgba(239,68,68,1)]">
+        <p className="mb-4 text-red-500 font-mono font-bold uppercase tracking-widest text-sm">背景导读 / Editor's Note</p>
+        <p className="mb-4 font-bold text-lg leading-relaxed">
+          这篇文章诞生于一个残酷的现实：90% 的人会在两周内放弃他们改变人生的决心。
+        </p>
+        <p className="mb-4 text-brutal-white/90 leading-relaxed">
+          著名创作者与思想家 Dan Koe 写下了这篇长文。它不是一碗廉价的“鸡汤”，也不是教你如何管理时间的“效率技巧”。这是一把冰冷而锋利的解剖刀。它直击人性的软弱，剖析了为什么我们总是渴望改变，却又永远在原地踏步。
+        </p>
+        <p className="text-brutal-white/90 leading-relaxed">
+          如果你对日复一日的平庸感到窒息，如果你厌倦了不断向自己妥协，这篇文章将是你觉醒的开始。它提供了一个只需1天就能完成的“人生重启协议”，教你如何通过直面深渊、打破幻觉，最终将你的人生变成一场令人上瘾的电子游戏。
+        </p>
+      </div>
+
       <p>你很可能会放弃你的新年决心。</p>
       <p>这没关系。大多数人都会放弃（研究显示失败率高达80-90%），因为大多数人其实并不想在内心深处做出改变。也就是说，他们改变生活的方式完全错了。他们制定新年决心是因为其他人都在这么做——人类总是更想给别人留下深刻印象，而不是给自己留下深刻印象……我们从地位游戏中创造出一种肤浅的意义——但他们并没有满足真正改变的条件。真正的改变，远比说服自己今年要更自律或更高效要深刻得多。</p>
       <p>我不是来对你说教的。我放弃的目标比我设定的目标多10倍。我认为大多数人都应该是这样。但人们试图改变生活却几乎每次都彻底失败，这是一个不争的事实。以至于“健身房在一月份人满为患，二月份恢复正常”已经成了一个梗。</p>
