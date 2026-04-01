@@ -6,6 +6,7 @@ import {
   initialProtocolState,
   useStore,
 } from '../../store/useStore'
+import { DaytimeSetup } from './DaytimeSetup'
 import { Morning } from './Morning'
 
 function renderMorning(initialPath = '/wizard') {
@@ -13,10 +14,7 @@ function renderMorning(initialPath = '/wizard') {
     <MemoryRouter initialEntries={[initialPath]}>
       <Routes>
         <Route path="/wizard" element={<Morning />} />
-        <Route
-          path="/wizard/daytime"
-          element={<h1 data-testid="daytime-setup-heading">Daytime Setup</h1>}
-        />
+        <Route path="/wizard/daytime" element={<DaytimeSetup />} />
       </Routes>
     </MemoryRouter>,
   )

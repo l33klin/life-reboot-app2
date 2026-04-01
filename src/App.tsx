@@ -7,6 +7,8 @@ import {
   Routes,
 } from 'react-router-dom'
 import { Layout } from './components/Layout'
+import { Reflect } from './pages/Reflect/Reflect'
+import { DaytimeSetup } from './pages/Wizard/DaytimeSetup'
 import { Morning } from './pages/Wizard/Morning'
 import { useStore } from './store/useStore'
 
@@ -62,11 +64,9 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<HomeRedirect />} />
           <Route path="/wizard" element={<Morning />} />
-          <Route
-            path="/wizard/daytime"
-            element={<Placeholder title="Daytime Setup" />}
-          />
-          <Route path="/reflect" element={<Placeholder title="Reflect" />} />
+          <Route path="/wizard/daytime" element={<DaytimeSetup />} />
+          <Route path="/wizard/evening" element={<Placeholder title="Evening Synthesis" />} />
+          <Route path="/reflect" element={<Reflect />} />
           <Route path="/dashboard" element={<Placeholder title="Dashboard" />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

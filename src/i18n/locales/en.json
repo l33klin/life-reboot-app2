@@ -21,6 +21,30 @@
       "visionLabel": "Vision",
       "visionDescription": "The life you are building.",
       "next": "Next: Setup Daytime Interrupts"
+    },
+    "daytime": {
+      "title": "Daytime interrupts",
+      "subtitle": "Three short checkpoints keep the protocol present while you work.",
+      "scheduleIntro": "You will get three reminders today at:",
+      "slot1": "11:00 — Interrupt 1",
+      "slot2": "13:30 — Interrupt 2",
+      "slot3": "15:15 — Interrupt 3",
+      "calendarHint": "Download the calendar file and import it into your calendar app. Each event links back here so you can answer the prompt in this tab.",
+      "download": "Download Calendar Events",
+      "next": "Continue to Evening Synthesis"
+    }
+  },
+  "reflect": {
+    "title": "Daytime interrupt",
+    "invalid": "This link is missing a valid question (use ?q=1, ?q=2, or ?q=3).",
+    "answerLabel": "Your reflection",
+    "answerDescription": "Answer honestly; it is saved only in this browser.",
+    "save": "Save reflection",
+    "saved": "Saved.",
+    "questions": {
+      "1": "What am I avoiding right now?",
+      "2": "What truth am I pretending not to know?",
+      "3": "What is the smallest honest next step?"
     }
   }
 }

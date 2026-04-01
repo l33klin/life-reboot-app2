@@ -32,4 +32,12 @@ describe('useStore', () => {
     expect(useStore.getState().morning.vision).toBe('Build discipline')
     expect(useStore.getState().morning.antiVision).toBe('')
   })
+
+  it('updates daytime interrupt answers via setDaytimeInterrupt', () => {
+    useStore.getState().setDaytimeInterrupt('1', 'Email I keep postponing')
+
+    expect(useStore.getState().daytime.interrupts['1']).toBe(
+      'Email I keep postponing',
+    )
+  })
 })
