@@ -9,6 +9,7 @@ import {
 import { Layout } from './components/Layout'
 import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Reflect } from './pages/Reflect/Reflect'
+import { Settings } from './pages/Settings/Settings'
 import { DaytimeSetup } from './pages/Wizard/DaytimeSetup'
 import { Evening } from './pages/Wizard/Evening'
 import { Morning } from './pages/Wizard/Morning'
@@ -60,6 +61,7 @@ function App() {
           <Route path="/wizard/evening" element={<Evening />} />
           <Route path="/reflect" element={<Reflect />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

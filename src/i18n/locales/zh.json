@@ -62,6 +62,21 @@
     "questsEmpty": "还没有日常任务。可在已保存的计划里补充，或重新完成晚间整合步骤。",
     "resetQuests": "重置今日任务勾选"
   },
+  "settings": {
+    "title": "设置",
+    "dataHeading": "数据备份",
+    "dataDescription": "导出 JSON 备份以便换设备或留存副本。导入会替换本浏览器中的当前协议与归档历史。",
+    "export": "导出数据",
+    "import": "导入数据",
+    "importReadError": "无法读取所选文件。",
+    "rebootHeading": "新的重启",
+    "rebootDescription": "将当前协议归档并重新开始向导。过往记录仍保留在本地归档中，并会包含在备份导出里。",
+    "initiateReboot": "开始新的重启",
+    "confirmRebootTitle": "确认新的重启",
+    "confirmRebootBody": "当前协议将存入归档并清空。是否继续？",
+    "cancel": "取消",
+    "confirm": "确认"
+  },
   "reflect": {
     "title": "日间打断",
     "invalid": "链接无效，请使用 ?q=1、?q=2 或 ?q=3。",

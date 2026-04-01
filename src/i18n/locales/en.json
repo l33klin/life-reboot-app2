@@ -62,6 +62,21 @@
     "questsEmpty": "No daily quests yet. Edit them in your saved plan or complete the evening step again.",
     "resetQuests": "Reset daily quests"
   },
+  "settings": {
+    "title": "Settings",
+    "dataHeading": "Data backup",
+    "dataDescription": "Export a JSON backup to move devices or keep a copy. Import replaces the active protocol and archive history in this browser.",
+    "export": "Export data",
+    "import": "Import data",
+    "importReadError": "Could not read the selected file.",
+    "rebootHeading": "New reboot",
+    "rebootDescription": "Archive your current protocol and start the wizard again. Previous runs stay in local archives inside your backup export.",
+    "initiateReboot": "Initiate New Reboot",
+    "confirmRebootTitle": "Confirm new reboot",
+    "confirmRebootBody": "Your current protocol will be saved to archives and cleared. Continue?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
   "reflect": {
     "title": "Daytime interrupt",
     "invalid": "This link is missing a valid question (use ?q=1, ?q=2, or ?q=3).",

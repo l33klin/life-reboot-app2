@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import {
   clearProtocolStorage,
-  initialProtocolState,
+  initialPersistedState,
   useStore,
 } from '../../store/useStore'
 import { Dashboard } from './Dashboard'
@@ -20,7 +20,7 @@ function renderDashboard() {
 describe('Dashboard', () => {
   beforeEach(async () => {
     await clearProtocolStorage()
-    useStore.setState(initialProtocolState)
+    useStore.setState(initialPersistedState)
     await useStore.persist.rehydrate()
   })
 

@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import {
   clearProtocolStorage,
-  initialProtocolState,
+  initialPersistedState,
   useStore,
 } from '../../store/useStore'
 import { Evening } from './Evening'
@@ -30,7 +30,7 @@ function renderEvening(initialPath = '/wizard/evening') {
 describe('Evening synthesis', () => {
   beforeEach(async () => {
     await clearProtocolStorage()
-    useStore.setState(initialProtocolState)
+    useStore.setState(initialPersistedState)
     await useStore.persist.rehydrate()
   })
 

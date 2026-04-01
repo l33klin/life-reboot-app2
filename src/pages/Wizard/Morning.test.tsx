@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import {
   clearProtocolStorage,
-  initialProtocolState,
+  initialPersistedState,
   useStore,
 } from '../../store/useStore'
 import { DaytimeSetup } from './DaytimeSetup'
@@ -23,7 +23,7 @@ function renderMorning(initialPath = '/wizard') {
 describe('Morning wizard', () => {
   beforeEach(async () => {
     await clearProtocolStorage()
-    useStore.setState(initialProtocolState)
+    useStore.setState(initialPersistedState)
     await useStore.persist.rehydrate()
   })
 

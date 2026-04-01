@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import {
   clearProtocolStorage,
-  initialProtocolState,
+  initialPersistedState,
   useStore,
 } from './useStore'
 
@@ -9,7 +9,7 @@ describe('useStore', () => {
   beforeEach(async () => {
     await clearProtocolStorage()
     // Shallow merge so persist actions (e.g. setMorning) stay on the store
-    useStore.setState(initialProtocolState)
+    useStore.setState(initialPersistedState)
     await useStore.persist.rehydrate()
   })
 
@@ -25,6 +25,7 @@ describe('useStore', () => {
     expect(state.evening.quests).toBe('')
     expect(state.evening.rules).toBe('')
     expect(state.dailyQuestProgress).toBeNull()
+    expect(state.archives).toEqual([])
   })
 
   it('updates state via setMorning', () => {

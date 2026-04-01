@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import App from './App'
 import {
   clearProtocolStorage,
-  initialProtocolState,
+  initialPersistedState,
   useStore,
 } from './store/useStore'
 
@@ -11,7 +11,7 @@ describe('App', () => {
   beforeEach(async () => {
     window.history.pushState({}, '', '/')
     await clearProtocolStorage()
-    useStore.setState(initialProtocolState)
+    useStore.setState(initialPersistedState)
     await useStore.persist.rehydrate()
   })
 

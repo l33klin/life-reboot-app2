@@ -63,6 +63,15 @@ export interface ProtocolState {
   dailyQuestProgress: DailyQuestProgress | null
 }
 
+/** Immutable snapshot of an archived protocol (active fields only). */
+export type ProtocolSnapshot = {
+  morning: ProtocolState['morning']
+  daytime: ProtocolState['daytime']
+  evening: ProtocolState['evening']
+  status: ProtocolStatus
+  dailyQuestProgress: DailyQuestProgress | null
+}
+
 export const initialProtocolState: ProtocolState = {
   morning: { antiVision: '', vision: '' },
   daytime: { interrupts: {} },
@@ -76,6 +85,14 @@ export const initialProtocolState: ProtocolState = {
   dailyQuestProgress: null,
 }
 
+/** Default persisted slice (protocol fields + archives) for tests and resets. */
+export const initialPersistedState = {
+  ...initialProtocolState,
+  archives: [] as ProtocolSnapshot[],
+}
+
+const initialArchives: ProtocolSnapshot[] = []
+
 type ProtocolActions = {
   setMorning: (partial: Partial<ProtocolState['morning']>) => void
   setDaytimeInterrupt: (questionKey: string, answer: string) => void
@@ -84,14 +101,28 @@ type ProtocolActions = {
   alignDailyQuestProgress: (questCount: number) => void
   setDailyQuestChecked: (index: number, checked: boolean) => void
   resetDailyQuestProgress: (questCount: number) => void
+  /** Moves the current active protocol into `archives` and resets active state to `in_progress`. */
+  archiveProtocol: () => void
+  /** Replaces active protocol and archives from a validated backup payload. */
+  replaceFromImport: (payload: {
+    morning: ProtocolState['morning']
+    daytime: ProtocolState['daytime']
+    evening: ProtocolState['evening']
+    status: ProtocolStatus
+    dailyQuestProgress: DailyQuestProgress | null
+    archives: ProtocolSnapshot[]
+  }) => void
 }
 
-type Store = ProtocolState & ProtocolActions
+type Store = ProtocolState & {
+  archives: ProtocolSnapshot[]
+} & ProtocolActions
 
 export const useStore = create<Store>()(
   persist(
     (set) => ({
       ...initialProtocolState,
+      archives: initialArchives,
       setMorning: (partial) =>
         set((s) => ({ morning: { ...s.morning, ...partial } })),
       setDaytimeInterrupt: (questionKey, answer) =>
@@ -136,6 +167,29 @@ export const useStore = create<Store>()(
             checked: Array(questCount).fill(false),
           },
         }),
+      archiveProtocol: () =>
+        set((s) => {
+          const snapshot: ProtocolSnapshot = {
+            morning: s.morning,
+            daytime: s.daytime,
+            evening: s.evening,
+            status: s.status,
+            dailyQuestProgress: s.dailyQuestProgress,
+          }
+          return {
+            ...initialProtocolState,
+            archives: [...s.archives, snapshot],
+          }
+        }),
+      replaceFromImport: (payload) =>
+        set({
+          morning: payload.morning,
+          daytime: payload.daytime,
+          evening: payload.evening,
+          status: payload.status,
+          dailyQuestProgress: payload.dailyQuestProgress,
+          archives: payload.archives,
+        }),
     }),
     {
       name: 'protocol-state',
@@ -146,7 +200,16 @@ export const useStore = create<Store>()(
         evening: state.evening,
         status: state.status,
         dailyQuestProgress: state.dailyQuestProgress,
+        archives: state.archives,
       }),
+      merge: (persisted, current) => {
+        const p = persisted as Partial<Store> | undefined
+        return {
+          ...current,
+          ...p,
+          archives: Array.isArray(p?.archives) ? p.archives : [],
+        }
+      },
     },
   ),
 )
