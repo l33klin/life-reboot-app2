@@ -11,6 +11,11 @@ const protocolForage = localforage.createInstance({
   storeName: 'zustand',
 })
 
+/** Clears persisted protocol data in the same IndexedDB instance as the store. */
+export async function clearProtocolStorage(): Promise<void> {
+  await protocolForage.clear()
+}
+
 const forageStorage: StateStorage = {
   getItem: async (name) => {
     const value = await protocolForage.getItem<string>(name)

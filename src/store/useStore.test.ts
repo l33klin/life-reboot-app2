@@ -1,22 +1,19 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import localforage from 'localforage'
-import { initialProtocolState, useStore } from './useStore'
-
-async function waitForHydration(): Promise<void> {
-  await useStore.persist.rehydrate()
-}
+import {
+  clearProtocolStorage,
+  initialProtocolState,
+  useStore,
+} from './useStore'
 
 describe('useStore', () => {
   beforeEach(async () => {
-    await localforage.clear()
+    await clearProtocolStorage()
     // Shallow merge so persist actions (e.g. setMorning) stay on the store
     useStore.setState(initialProtocolState)
-    await waitForHydration()
+    await useStore.persist.rehydrate()
   })
 
-  it('has initial state with status in_progress and empty answers', async () => {
-    await waitForHydration()
-
+  it('has initial state with status in_progress and empty answers', () => {
     const state = useStore.getState()
 
     expect(state.status).toBe('in_progress')
@@ -29,9 +26,7 @@ describe('useStore', () => {
     expect(state.evening.rules).toBe('')
   })
 
-  it('updates state via setMorning', async () => {
-    await waitForHydration()
-
+  it('updates state via setMorning', () => {
     useStore.getState().setMorning({ vision: 'Build discipline' })
 
     expect(useStore.getState().morning.vision).toBe('Build discipline')
