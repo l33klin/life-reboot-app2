@@ -16,7 +16,7 @@
     "back": "Back",
     "next": "Next",
     "morning": {
-      "title": "Psychological excavation",
+      "title": "Phase 1: Face the Abyss",
       "subtitle": "Define what you refuse and what you are moving toward.",
       "antiVisionLabel": "Anti-vision",
       "antiVisionDescription": "What is the dull and persistent dissatisfaction you've learned to live with? What does your life look like in 5 years if absolutely nothing changes?",
@@ -27,7 +27,7 @@
       "next": "Next: Setup Daytime Interrupts"
     },
     "daytime": {
-      "title": "Daytime interrupts",
+      "title": "Phase 2: Shatter the Illusion",
       "subtitle": "Four short checkpoints keep the protocol present while you work.",
       "scheduleIntro": "You will get four reminders today at:",
       "slot1": "11:00 — Interrupt 1",
@@ -39,7 +39,7 @@
       "next": "Continue to Evening Synthesis"
     },
     "evening": {
-      "title": "Evening synthesis",
+      "title": "Phase 3: Forge the New Self",
       "subtitle": "Review what surfaced today, then lock in your game plan.",
       "reviewHeading": "What you wrote today",
       "synthesisHeading": "Your framework",
@@ -100,10 +100,9 @@
       "4": "Evening Synthesis: Review what surfaced today, then lock in your game plan."
     },
     "titles": {
-      "1": "Life Reboot: Breaking Autopilot",
-      "2": "Life Reboot: Behavior Check",
-      "3": "Life Reboot: Trajectory Check",
-      "4": "Life Reboot: Evening Synthesis"
+      "1": "Phase 1: Face the Abyss",
+      "2": "Phase 2: Shatter the Illusion",
+      "3": "Phase 3: Forge the New Self"
     }
   }
 }

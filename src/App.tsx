@@ -5,16 +5,25 @@ import {
   Navigate,
   Route,
   Routes,
+  useSearchParams,
 } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { Landing } from './pages/Landing/Landing'
 import { Dashboard } from './pages/Dashboard/Dashboard'
-import { Reflect } from './pages/Reflect/Reflect'
 import { Settings } from './pages/Settings/Settings'
 import { DaytimeSetup } from './pages/Wizard/DaytimeSetup'
 import { Evening } from './pages/Wizard/Evening'
 import { Morning } from './pages/Wizard/Morning'
 import { useStore } from './store/useStore'
+
+function ReflectRedirect() {
+  const [searchParams] = useSearchParams()
+  const q = searchParams.get('q')
+  if (q && ['1', '2', '3'].includes(q)) {
+    return <Navigate to={`/wizard/daytime?step=${parseInt(q) + 1}`} replace />
+  }
+  return <Navigate to="/wizard/daytime" replace />
+}
 
 function HomeRedirect() {
   const { t } = useTranslation()
@@ -56,7 +65,7 @@ function App() {
           <Route path="/wizard" element={<Morning />} />
           <Route path="/wizard/daytime" element={<DaytimeSetup />} />
           <Route path="/wizard/evening" element={<Evening />} />
-          <Route path="/reflect" element={<Reflect />} />
+          <Route path="/reflect" element={<ReflectRedirect />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -213,3 +213,10 @@ export const useStore = create<Store>()(
     },
   ),
 )
+
+// Enable cross-tab synchronization
+if (typeof window !== 'undefined') {
+  window.addEventListener('focus', () => {
+    useStore.persist.rehydrate()
+  })
+}
