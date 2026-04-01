@@ -7,6 +7,7 @@ import {
   Routes,
 } from 'react-router-dom'
 import { Layout } from './components/Layout'
+import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Reflect } from './pages/Reflect/Reflect'
 import { DaytimeSetup } from './pages/Wizard/DaytimeSetup'
 import { Evening } from './pages/Wizard/Evening'
@@ -48,16 +49,6 @@ function HomeRedirect() {
   return <Navigate to="/wizard" replace />
 }
 
-function Placeholder({ title }: { title: string }) {
-  return (
-    <div>
-      <h1 className="font-mono text-2xl font-bold uppercase tracking-tight">
-        {title}
-      </h1>
-    </div>
-  )
-}
-
 function App() {
   return (
     <BrowserRouter>
@@ -68,7 +59,7 @@ function App() {
           <Route path="/wizard/daytime" element={<DaytimeSetup />} />
           <Route path="/wizard/evening" element={<Evening />} />
           <Route path="/reflect" element={<Reflect />} />
-          <Route path="/dashboard" element={<Placeholder title="Dashboard" />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

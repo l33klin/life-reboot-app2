@@ -50,6 +50,18 @@
       "complete": "完成协议"
     }
   },
+  "dashboard": {
+    "title": "仪表盘",
+    "stakesLabel": "代价",
+    "stakesHeading": "反愿景",
+    "winLabel": "收获",
+    "winHeading": "愿景",
+    "objectivesHeading": "当前目标",
+    "questsSectionLabel": "日常任务",
+    "questsHeading": "日常任务（杠杆）",
+    "questsEmpty": "还没有日常任务。可在已保存的计划里补充，或重新完成晚间整合步骤。",
+    "resetQuests": "重置今日任务勾选"
+  },
   "reflect": {
     "title": "日间打断",
     "invalid": "链接无效，请使用 ?q=1、?q=2 或 ?q=3。",

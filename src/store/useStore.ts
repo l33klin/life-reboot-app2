@@ -31,6 +31,19 @@ const forageStorage: StateStorage = {
 
 export type ProtocolStatus = 'in_progress' | 'completed'
 
+/** Local calendar date `YYYY-MM-DD` for daily quest progress rollover. */
+export function getLocalDateKey(d = new Date()): string {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
+export type DailyQuestProgress = {
+  dateKey: string
+  checked: boolean[]
+}
+
 export interface ProtocolState {
   morning: {
     antiVision: string
@@ -46,6 +59,8 @@ export interface ProtocolState {
     rules: string
   }
   status: ProtocolStatus
+  /** Checked state for parsed daily quest lines; keyed by calendar day in `dateKey`. */
+  dailyQuestProgress: DailyQuestProgress | null
 }
 
 export const initialProtocolState: ProtocolState = {
@@ -58,6 +73,7 @@ export const initialProtocolState: ProtocolState = {
     rules: '',
   },
   status: 'in_progress',
+  dailyQuestProgress: null,
 }
 
 type ProtocolActions = {
@@ -65,6 +81,9 @@ type ProtocolActions = {
   setDaytimeInterrupt: (questionKey: string, answer: string) => void
   setEvening: (partial: Partial<ProtocolState['evening']>) => void
   completeProtocol: () => void
+  alignDailyQuestProgress: (questCount: number) => void
+  setDailyQuestChecked: (index: number, checked: boolean) => void
+  resetDailyQuestProgress: (questCount: number) => void
 }
 
 type Store = ProtocolState & ProtocolActions
@@ -84,6 +103,39 @@ export const useStore = create<Store>()(
       setEvening: (partial) =>
         set((s) => ({ evening: { ...s.evening, ...partial } })),
       completeProtocol: () => set({ status: 'completed' }),
+      alignDailyQuestProgress: (questCount) =>
+        set((s) => {
+          const dateKey = getLocalDateKey()
+          const prev = s.dailyQuestProgress
+          let checked: boolean[]
+          if (!prev || prev.dateKey !== dateKey) {
+            checked = Array(questCount).fill(false)
+          } else if (prev.checked.length === questCount) {
+            checked = prev.checked
+          } else {
+            checked = Array.from({ length: questCount }, (_, i) =>
+              Boolean(prev.checked[i]),
+            )
+          }
+          return { dailyQuestProgress: { dateKey, checked } }
+        }),
+      setDailyQuestChecked: (index, checked) =>
+        set((s) => {
+          const p = s.dailyQuestProgress
+          if (!p || index < 0 || index >= p.checked.length) {
+            return {}
+          }
+          const next = [...p.checked]
+          next[index] = checked
+          return { dailyQuestProgress: { ...p, checked: next } }
+        }),
+      resetDailyQuestProgress: (questCount) =>
+        set({
+          dailyQuestProgress: {
+            dateKey: getLocalDateKey(),
+            checked: Array(questCount).fill(false),
+          },
+        }),
     }),
     {
       name: 'protocol-state',
@@ -93,6 +145,7 @@ export const useStore = create<Store>()(
         daytime: state.daytime,
         evening: state.evening,
         status: state.status,
+        dailyQuestProgress: state.dailyQuestProgress,
       }),
     },
   ),

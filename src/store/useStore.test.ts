@@ -24,6 +24,7 @@ describe('useStore', () => {
     expect(state.evening.bossFight).toBe('')
     expect(state.evening.quests).toBe('')
     expect(state.evening.rules).toBe('')
+    expect(state.dailyQuestProgress).toBeNull()
   })
 
   it('updates state via setMorning', () => {

@@ -50,6 +50,18 @@
       "complete": "Complete protocol"
     }
   },
+  "dashboard": {
+    "title": "Dashboard",
+    "stakesLabel": "The stakes",
+    "stakesHeading": "Anti-vision",
+    "winLabel": "The win",
+    "winHeading": "Vision",
+    "objectivesHeading": "Current objectives",
+    "questsSectionLabel": "Daily quests",
+    "questsHeading": "Daily quests (levers)",
+    "questsEmpty": "No daily quests yet. Edit them in your saved plan or complete the evening step again.",
+    "resetQuests": "Reset daily quests"
+  },
   "reflect": {
     "title": "Daytime interrupt",
     "invalid": "This link is missing a valid question (use ?q=1, ?q=2, or ?q=3).",
