@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import {
   clearProtocolStorage,
@@ -63,21 +64,57 @@ describe('Evening synthesis', () => {
     )
   })
 
-  it('saves Mission, Boss Fight, Quests, and Rules to the store when typed', () => {
+  it('shows not-answered for empty or whitespace-only review text and missing interrupt 3', () => {
+    useStore.setState({
+      morning: { antiVision: '', vision: '  \t  ' },
+      daytime: {
+        interrupts: {
+          '1': 'First answer',
+          '2': '  ',
+        },
+      },
+    })
+
     renderEvening()
 
-    fireEvent.change(screen.getByTestId('evening-mission'), {
-      target: { value: 'One year: ship the product' },
-    })
-    fireEvent.change(screen.getByTestId('evening-boss-fight'), {
-      target: { value: 'Finish the core loop' },
-    })
-    fireEvent.change(screen.getByTestId('evening-quests'), {
-      target: { value: 'Deep work block daily' },
-    })
-    fireEvent.change(screen.getByTestId('evening-rules'), {
-      target: { value: 'No phone before noon' },
-    })
+    const placeholder = '—'
+    expect(screen.getByTestId('evening-review-anti-vision')).toHaveTextContent(
+      placeholder,
+    )
+    expect(screen.getByTestId('evening-review-vision')).toHaveTextContent(
+      placeholder,
+    )
+    expect(screen.getByTestId('evening-review-interrupt-1')).toHaveTextContent(
+      'First answer',
+    )
+    expect(screen.getByTestId('evening-review-interrupt-2')).toHaveTextContent(
+      placeholder,
+    )
+    expect(screen.getByTestId('evening-review-interrupt-3')).toHaveTextContent(
+      placeholder,
+    )
+  })
+
+  it('saves Mission, Boss Fight, Quests, and Rules to the store when typed', async () => {
+    const user = userEvent.setup()
+    renderEvening()
+
+    await user.type(
+      screen.getByTestId('evening-mission'),
+      'One year: ship the product',
+    )
+    await user.type(
+      screen.getByTestId('evening-boss-fight'),
+      'Finish the core loop',
+    )
+    await user.type(
+      screen.getByTestId('evening-quests'),
+      'Deep work block daily',
+    )
+    await user.type(
+      screen.getByTestId('evening-rules'),
+      'No phone before noon',
+    )
 
     const s = useStore.getState()
     expect(s.evening.mission).toBe('One year: ship the product')
@@ -86,7 +123,8 @@ describe('Evening synthesis', () => {
     expect(s.evening.rules).toBe('No phone before noon')
   })
 
-  it('marks protocol completed and navigates to dashboard on submit', () => {
+  it('marks protocol completed and navigates to dashboard on submit', async () => {
+    const user = userEvent.setup()
     useStore.setState({
       morning: { antiVision: 'A', vision: 'B' },
       daytime: { interrupts: { '1': 'C' } },
@@ -94,20 +132,12 @@ describe('Evening synthesis', () => {
 
     renderEvening()
 
-    fireEvent.change(screen.getByTestId('evening-mission'), {
-      target: { value: 'Mission text' },
-    })
-    fireEvent.change(screen.getByTestId('evening-boss-fight'), {
-      target: { value: 'Boss text' },
-    })
-    fireEvent.change(screen.getByTestId('evening-quests'), {
-      target: { value: 'Quest text' },
-    })
-    fireEvent.change(screen.getByTestId('evening-rules'), {
-      target: { value: 'Rules text' },
-    })
+    await user.type(screen.getByTestId('evening-mission'), 'Mission text')
+    await user.type(screen.getByTestId('evening-boss-fight'), 'Boss text')
+    await user.type(screen.getByTestId('evening-quests'), 'Quest text')
+    await user.type(screen.getByTestId('evening-rules'), 'Rules text')
 
-    fireEvent.click(screen.getByTestId('evening-complete'))
+    await user.click(screen.getByTestId('evening-complete'))
 
     expect(useStore.getState().status).toBe('completed')
     expect(

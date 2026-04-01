@@ -18,8 +18,13 @@ export function Evening() {
   const setEvening = useStore((s) => s.setEvening)
   const completeProtocol = useStore((s) => s.completeProtocol)
 
+  const morningAntiVision = morning.antiVision.trim()
+  const morningVision = morning.vision.trim()
+
   function handleComplete() {
     completeProtocol()
+    // `HomeRedirect` only reacts on `/`; imperative navigation keeps a single
+    // completion path from this route even if global guards change later.
     navigate('/dashboard')
   }
 
@@ -52,7 +57,7 @@ export function Evening() {
                 data-testid="evening-review-anti-vision"
                 className="mt-2 whitespace-pre-wrap border-l-2 border-brutal-black/20 pl-4 font-sans text-base leading-relaxed text-brutal-black"
               >
-                {morning.antiVision || t('wizard.evening.notAnswered')}
+                {morningAntiVision || t('wizard.evening.notAnswered')}
               </p>
             </div>
             <div>
@@ -63,7 +68,7 @@ export function Evening() {
                 data-testid="evening-review-vision"
                 className="mt-2 whitespace-pre-wrap border-l-2 border-brutal-black/20 pl-4 font-sans text-base leading-relaxed text-brutal-black"
               >
-                {morning.vision || t('wizard.evening.notAnswered')}
+                {morningVision || t('wizard.evening.notAnswered')}
               </p>
             </div>
           </div>
