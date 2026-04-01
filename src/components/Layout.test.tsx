@@ -2,7 +2,20 @@ import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './Layout'
+import { MIN_RELIABLE_STORAGE_QUOTA_BYTES } from './PrivateBrowsingWarning'
 import i18n from '../i18n/config'
+
+function renderLayoutAt(path: string) {
+  return render(
+    <MemoryRouter initialEntries={[path]}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<span>home</span>} />
+        </Route>
+      </Routes>
+    </MemoryRouter>,
+  )
+}
 
 describe('Layout', () => {
   beforeEach(() => {
@@ -14,15 +27,7 @@ describe('Layout', () => {
   })
 
   it('LanguageToggle switches language', async () => {
-    render(
-      <MemoryRouter initialEntries={['/']}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<span>home</span>} />
-          </Route>
-        </Routes>
-      </MemoryRouter>,
-    )
+    renderLayoutAt('/')
 
     expect(i18n.language).toMatch(/^en/)
 
@@ -42,21 +47,31 @@ describe('Layout', () => {
       ...globalThis.navigator,
       storage: {
         estimate: vi.fn().mockResolvedValue({
-          quota: 2 * 1024 * 1024,
+          quota: MIN_RELIABLE_STORAGE_QUOTA_BYTES - 1,
           usage: 0,
         }),
       },
     })
 
-    render(
-      <MemoryRouter initialEntries={['/']}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<span>home</span>} />
-          </Route>
-        </Routes>
-      </MemoryRouter>,
+    renderLayoutAt('/')
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toBeInTheDocument()
+    })
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      /private|隐私|limited|存储/i,
     )
+  })
+
+  it('PrivateBrowsingWarning renders when storage estimate rejects', async () => {
+    vi.stubGlobal('navigator', {
+      ...globalThis.navigator,
+      storage: {
+        estimate: vi.fn().mockRejectedValue(new Error('denied')),
+      },
+    })
+
+    renderLayoutAt('/')
 
     await waitFor(() => {
       expect(screen.getByRole('alert')).toBeInTheDocument()
@@ -77,15 +92,7 @@ describe('Layout', () => {
       },
     })
 
-    render(
-      <MemoryRouter initialEntries={['/']}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<span>home</span>} />
-          </Route>
-        </Routes>
-      </MemoryRouter>,
-    )
+    renderLayoutAt('/')
 
     await waitFor(() => {
       expect(navigator.storage.estimate).toHaveBeenCalled()

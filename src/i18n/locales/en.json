@@ -8,5 +8,8 @@
   },
   "privateBrowsing": {
     "warning": "Limited browser storage detected (often in private or incognito mode). Your progress may not persist after you close this tab."
+  },
+  "home": {
+    "loading": "Loading saved progress…"
   }
 }

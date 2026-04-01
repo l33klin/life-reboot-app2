@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   BrowserRouter,
   Navigate,
@@ -9,6 +10,7 @@ import { Layout } from './components/Layout'
 import { useStore } from './store/useStore'
 
 function HomeRedirect() {
+  const { t } = useTranslation()
   const status = useStore((s) => s.status)
   const [hydrated, setHydrated] = useState(() =>
     useStore.persist.hasHydrated(),
@@ -24,8 +26,14 @@ function HomeRedirect() {
 
   if (!hydrated) {
     return (
-      <div className="font-mono text-sm uppercase tracking-tight text-brutal-black">
-        …
+      <div
+        aria-busy="true"
+        aria-live="polite"
+        role="status"
+        className="font-mono text-sm uppercase tracking-tight text-brutal-black"
+      >
+        <span aria-hidden="true">…</span>
+        <span className="sr-only">{t('home.loading')}</span>
       </div>
     )
   }
