@@ -30,6 +30,7 @@ export function Morning() {
             data-testid="morning-anti-vision"
             label={t('wizard.morning.antiVisionLabel')}
             description={t('wizard.morning.antiVisionDescription')}
+            example={t('wizard.morning.antiVisionExample')}
             value={antiVision}
             onChange={(v) => setMorning({ antiVision: v })}
           />
@@ -37,6 +38,7 @@ export function Morning() {
             data-testid="morning-vision"
             label={t('wizard.morning.visionLabel')}
             description={t('wizard.morning.visionDescription')}
+            example={t('wizard.morning.visionExample')}
             value={vision}
             onChange={(v) => setMorning({ vision: v })}
           />

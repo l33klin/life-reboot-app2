@@ -5,7 +5,7 @@ import {
 } from './icsGenerator'
 
 describe('generateInterrupts', () => {
-  it('returns valid VCALENDAR content with three events', () => {
+  it('returns valid VCALENDAR content with four events', () => {
     const date = new Date(2026, 5, 15)
     const ics = generateInterrupts({
       date,
@@ -15,10 +15,10 @@ describe('generateInterrupts', () => {
     expect(ics).toMatch(/^BEGIN:VCALENDAR/)
     expect(ics).toMatch(/END:VCALENDAR\r?\n?$/)
     const events = ics.match(/BEGIN:VEVENT/g)
-    expect(events).toHaveLength(3)
+    expect(events).toHaveLength(4)
   })
 
-  it('uses local start times 11:00, 13:30, and 15:15 on the given date', () => {
+  it('uses local start times 11:00, 13:30, 15:15, and 20:00 on the given date', () => {
     const date = new Date(2026, 5, 15)
     const ics = generateInterrupts({
       date,
@@ -28,9 +28,10 @@ describe('generateInterrupts', () => {
     expect(ics).toContain('DTSTART:20260615T110000')
     expect(ics).toContain('DTSTART:20260615T133000')
     expect(ics).toContain('DTSTART:20260615T151500')
+    expect(ics).toContain('DTSTART:20260615T200000')
   })
 
-  it('embeds reflect deep links with q=1, q=2, and q=3', () => {
+  it('embeds reflect deep links with q=1, q=2, q=3, and evening link', () => {
     const date = new Date(2026, 3, 1)
     const ics = generateInterrupts({
       date,
@@ -40,6 +41,7 @@ describe('generateInterrupts', () => {
     expect(ics).toContain('/reflect?q=1')
     expect(ics).toContain('/reflect?q=2')
     expect(ics).toContain('/reflect?q=3')
+    expect(ics).toContain('/wizard/evening')
     expect(ics).toContain('https://app.example/reflect?q=1')
   })
 
@@ -62,6 +64,6 @@ describe('generateInterrupts', () => {
     })
 
     const durations = ics.match(/DURATION:PT15M/g)
-    expect(durations).toHaveLength(3)
+    expect(durations).toHaveLength(4)
   })
 })

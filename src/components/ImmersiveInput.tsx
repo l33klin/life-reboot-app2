@@ -53,6 +53,7 @@ function useImmersiveChrome() {
 export type ImmersiveInputProps = {
   label: string
   description?: string
+  example?: string
   value: string
   onChange: (value: string) => void
 } & Omit<
@@ -63,6 +64,7 @@ export type ImmersiveInputProps = {
 export function ImmersiveInput({
   label,
   description,
+  example,
   value,
   onChange,
   id: idProp,
@@ -129,6 +131,16 @@ export function ImmersiveInput({
         >
           {description}
         </p>
+      ) : null}
+      {example ? (
+        <details className="mt-3 max-w-prose group cursor-pointer">
+          <summary className="font-mono text-xs uppercase tracking-wider text-brutal-black/50 hover:text-brutal-black transition-colors select-none">
+            View Example
+          </summary>
+          <div className="mt-2 p-4 bg-brutal-black/5 border-l-2 border-brutal-black/20 font-sans text-base italic text-brutal-black/80 whitespace-pre-wrap">
+            {example}
+          </div>
+        </details>
       ) : null}
       <textarea
         ref={textareaRef}

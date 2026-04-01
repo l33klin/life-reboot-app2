@@ -10,6 +10,13 @@ export function DaytimeSetup() {
     const ics = generateInterrupts({
       date: new Date(),
       baseUrl: window.location.origin,
+      titles: [
+        t('reflect.titles.1'),
+        t('reflect.titles.2'),
+        t('reflect.titles.3'),
+        t('reflect.titles.4'),
+      ],
+      description: t('privateBrowsing.warning'),
     })
     const blob = new Blob([ics], {
       type: 'text/calendar;charset=utf-8',
@@ -45,6 +52,7 @@ export function DaytimeSetup() {
           <li>{t('wizard.daytime.slot1')}</li>
           <li>{t('wizard.daytime.slot2')}</li>
           <li>{t('wizard.daytime.slot3')}</li>
+          <li>{t('wizard.daytime.slot4')}</li>
         </ul>
         <p>{t('wizard.daytime.calendarHint')}</p>
       </div>

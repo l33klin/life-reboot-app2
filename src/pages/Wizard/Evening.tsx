@@ -109,6 +109,7 @@ export function Evening() {
                 data-testid="evening-mission"
                 label={t('wizard.evening.missionLabel')}
                 description={t('wizard.evening.missionDescription')}
+                example={t('wizard.evening.missionExample')}
                 value={evening.mission}
                 onChange={(v) => setEvening({ mission: v })}
               />
@@ -116,6 +117,7 @@ export function Evening() {
                 data-testid="evening-boss-fight"
                 label={t('wizard.evening.bossFightLabel')}
                 description={t('wizard.evening.bossFightDescription')}
+                example={t('wizard.evening.bossFightExample')}
                 value={evening.bossFight}
                 onChange={(v) => setEvening({ bossFight: v })}
               />
@@ -123,6 +125,7 @@ export function Evening() {
                 data-testid="evening-quests"
                 label={t('wizard.evening.questsLabel')}
                 description={t('wizard.evening.questsDescription')}
+                example={t('wizard.evening.questsExample')}
                 value={evening.quests}
                 onChange={(v) => setEvening({ quests: v })}
               />
@@ -130,6 +133,7 @@ export function Evening() {
                 data-testid="evening-rules"
                 label={t('wizard.evening.rulesLabel')}
                 description={t('wizard.evening.rulesDescription')}
+                example={t('wizard.evening.rulesExample')}
                 value={evening.rules}
                 onChange={(v) => setEvening({ rules: v })}
               />

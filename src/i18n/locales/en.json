@@ -17,18 +17,21 @@
       "title": "Psychological excavation",
       "subtitle": "Define what you refuse and what you are moving toward.",
       "antiVisionLabel": "Anti-vision",
-      "antiVisionDescription": "The life you refuse to live.",
+      "antiVisionDescription": "What is the dull and persistent dissatisfaction you've learned to live with? What does your life look like in 5 years if absolutely nothing changes?",
+      "antiVisionExample": "I wake up exhausted, commute 1 hour to a job I hate, and spend my evenings numbing myself with Netflix. I never take risks and watch others live my dreams.",
       "visionLabel": "Vision",
-      "visionDescription": "The life you are building.",
+      "visionDescription": "If you could snap your fingers and be living a different life in three years, what do you actually want? What does an average Tuesday look like?",
+      "visionExample": "I wake up without an alarm, spend 2 hours writing or building my own business, and have the freedom to travel and work from anywhere.",
       "next": "Next: Setup Daytime Interrupts"
     },
     "daytime": {
       "title": "Daytime interrupts",
-      "subtitle": "Three short checkpoints keep the protocol present while you work.",
-      "scheduleIntro": "You will get three reminders today at:",
+      "subtitle": "Four short checkpoints keep the protocol present while you work.",
+      "scheduleIntro": "You will get four reminders today at:",
       "slot1": "11:00 — Interrupt 1",
       "slot2": "13:30 — Interrupt 2",
       "slot3": "15:15 — Interrupt 3",
+      "slot4": "20:00 — Evening Synthesis",
       "calendarHint": "Download the calendar file and import it into your calendar app. Each event links back here so you can answer the prompt in this tab.",
       "download": "Download Calendar Events",
       "next": "Continue to Evening Synthesis"
@@ -40,13 +43,17 @@
       "synthesisHeading": "Your framework",
       "notAnswered": "—",
       "missionLabel": "1-year mission",
-      "missionDescription": "The north-star outcome you are playing for this year.",
+      "missionDescription": "What would have to be true in one year for you to know you’ve broken the old pattern? One concrete thing.",
+      "missionExample": "Launch my independent business and get my first 10 paying customers.",
       "bossFightLabel": "1-month boss fight",
-      "bossFightDescription": "The main obstacle or project you will defeat this month.",
+      "bossFightDescription": "What do you need to learn or build this month that will move you closer to the one-year goal?",
+      "bossFightExample": "Build the MVP of my product and set up a landing page.",
       "questsLabel": "Daily quests (levers)",
-      "questsDescription": "Small repeatable actions that move the needle every day.",
+      "questsDescription": "What are 2-3 needle-moving actions you can timeblock tomorrow that the person you’re becoming would simply do? (One per line)",
+      "questsExample": "Write for 1 hour\nCode for 2 hours\nExercise for 30 mins",
       "rulesLabel": "Rules (constraints)",
-      "rulesDescription": "Non-negotiables that protect your focus and integrity.",
+      "rulesDescription": "What are you not willing to sacrifice to achieve your vision?",
+      "rulesExample": "No working past 8 PM. Always prioritize 8 hours of sleep.",
       "complete": "Complete protocol"
     }
   },
@@ -85,9 +92,16 @@
     "save": "Save reflection",
     "saved": "Saved.",
     "questions": {
-      "1": "What am I avoiding right now?",
-      "2": "What truth am I pretending not to know?",
-      "3": "What is the smallest honest next step?"
+      "1": "What am I avoiding right now by doing what I'm doing?",
+      "2": "If someone filmed the last two hours, what would they conclude I want from my life?",
+      "3": "Am I moving toward the life I hate or the life I want?",
+      "4": "Evening Synthesis: Review what surfaced today, then lock in your game plan."
+    },
+    "titles": {
+      "1": "Life Reboot: Breaking Autopilot",
+      "2": "Life Reboot: Behavior Check",
+      "3": "Life Reboot: Trajectory Check",
+      "4": "Life Reboot: Evening Synthesis"
     }
   }
 }
