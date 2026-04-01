@@ -1,13 +1,64 @@
+import { useEffect, useState } from 'react'
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom'
+import { Layout } from './components/Layout'
+import { useStore } from './store/useStore'
+
+function HomeRedirect() {
+  const status = useStore((s) => s.status)
+  const [hydrated, setHydrated] = useState(() =>
+    useStore.persist.hasHydrated(),
+  )
+
+  useEffect(() => {
+    if (useStore.persist.hasHydrated()) {
+      setHydrated(true)
+      return
+    }
+    return useStore.persist.onFinishHydration(() => setHydrated(true))
+  }, [])
+
+  if (!hydrated) {
+    return (
+      <div className="font-mono text-sm uppercase tracking-tight text-brutal-black">
+        …
+      </div>
+    )
+  }
+
+  if (status === 'completed') {
+    return <Navigate to="/dashboard" replace />
+  }
+  return <Navigate to="/wizard" replace />
+}
+
+function Placeholder({ title }: { title: string }) {
+  return (
+    <div>
+      <h1 className="font-mono text-2xl font-bold uppercase tracking-tight">
+        {title}
+      </h1>
+    </div>
+  )
+}
+
 function App() {
   return (
-    <main className="min-h-screen bg-brutal-white p-8 font-sans text-brutal-black">
-      <h1 className="font-mono text-2xl font-bold uppercase tracking-tight">
-        Life Reboot Protocol
-      </h1>
-      <p className="mt-4 max-w-prose text-sm">
-        Pure client-side SPA foundation — Vite, React, Tailwind, Vitest.
-      </p>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomeRedirect />} />
+          <Route path="/wizard" element={<Placeholder title="Wizard" />} />
+          <Route path="/reflect" element={<Placeholder title="Reflect" />} />
+          <Route path="/dashboard" element={<Placeholder title="Dashboard" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

@@ -1,5 +1,12 @@
 {
   "app": {
     "title": "人生重启协议"
+  },
+  "layout": {
+    "langEn": "EN",
+    "langZh": "中文"
+  },
+  "privateBrowsing": {
+    "warning": "检测到浏览器存储空间很小（常见于隐私/无痕模式）。关闭标签页后，进度可能无法保留。"
   }
 }

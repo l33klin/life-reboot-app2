@@ -1,5 +1,12 @@
 {
   "app": {
     "title": "Life Reboot Protocol"
+  },
+  "layout": {
+    "langEn": "EN",
+    "langZh": "中文"
+  },
+  "privateBrowsing": {
+    "warning": "Limited browser storage detected (often in private or incognito mode). Your progress may not persist after you close this tab."
   }
 }
