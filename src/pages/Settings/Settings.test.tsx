@@ -11,8 +11,8 @@ import {
 import {
   parseProtocolImport,
   serializeProtocolExport,
-  Settings,
-} from './Settings'
+} from '../../utils/protocolBackup'
+import { Settings } from './Settings'
 
 function renderSettings() {
   return render(
@@ -76,7 +76,7 @@ describe('archiveProtocol', () => {
       dailyQuestProgress: null as null,
     }
     useStore.setState({
-      ...initialProtocolState,
+      ...initialPersistedState,
       morning: { antiVision: 'two', vision: 'v2' },
       archives: [first],
     })
@@ -219,9 +219,7 @@ describe('Settings UI', () => {
 
     renderSettings()
 
-    const input = document.querySelector(
-      'input[type="file"]',
-    ) as HTMLInputElement
+    const input = screen.getByTestId('settings-import-input')
     const file = new File([json], 'backup.json', { type: 'application/json' })
     await user.upload(input, file)
 
@@ -236,9 +234,7 @@ describe('Settings UI', () => {
     const user = userEvent.setup()
     renderSettings()
 
-    const input = document.querySelector(
-      'input[type="file"]',
-    ) as HTMLInputElement
+    const input = screen.getByTestId('settings-import-input')
     const file = new File(['{'], 'bad.json', { type: 'application/json' })
     await user.upload(input, file)
 

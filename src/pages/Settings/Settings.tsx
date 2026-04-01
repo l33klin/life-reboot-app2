@@ -2,168 +2,19 @@ import { useCallback, useId, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import {
-  type DailyQuestProgress,
-  type ProtocolSnapshot,
-  type ProtocolState,
-  type ProtocolStatus,
-  useStore,
-} from '../../store/useStore'
+  parseProtocolImport,
+  serializeProtocolExport,
+} from '../../utils/protocolBackup'
+import { useStore } from '../../store/useStore'
 
-export const PROTOCOL_EXPORT_VERSION = 1 as const
-
-export type ValidatedProtocolImport = {
-  morning: ProtocolState['morning']
-  daytime: ProtocolState['daytime']
-  evening: ProtocolState['evening']
-  status: ProtocolStatus
-  dailyQuestProgress: DailyQuestProgress | null
-  archives: ProtocolSnapshot[]
-}
-
-function isRecord(v: unknown): v is Record<string, unknown> {
-  return typeof v === 'object' && v !== null && !Array.isArray(v)
-}
-
-function isProtocolStatus(s: unknown): s is ProtocolStatus {
-  return s === 'in_progress' || s === 'completed'
-}
-
-function isStringRecord(v: unknown): v is Record<string, string> {
-  if (!isRecord(v)) return false
-  return Object.entries(v).every(
-    ([k, val]) => typeof k === 'string' && typeof val === 'string',
-  )
-}
-
-function validateDailyProgress(
-  v: unknown,
-): v is DailyQuestProgress | null {
-  if (v === null) return true
-  if (!isRecord(v)) return false
-  if (typeof v.dateKey !== 'string') return false
-  if (!Array.isArray(v.checked)) return false
-  return v.checked.every((c) => typeof c === 'boolean')
-}
-
-function validateSnapshot(u: unknown): u is ProtocolSnapshot {
-  if (!isRecord(u)) return false
-  if (!isRecord(u.morning)) return false
-  if (typeof u.morning.antiVision !== 'string') return false
-  if (typeof u.morning.vision !== 'string') return false
-  if (!isRecord(u.daytime) || !isStringRecord(u.daytime.interrupts)) {
-    return false
-  }
-  if (!isRecord(u.evening)) return false
-  if (typeof u.evening.mission !== 'string') return false
-  if (typeof u.evening.bossFight !== 'string') return false
-  if (typeof u.evening.quests !== 'string') return false
-  if (typeof u.evening.rules !== 'string') return false
-  if (!isProtocolStatus(u.status)) return false
-  if (!validateDailyProgress(u.dailyQuestProgress)) return false
-  return true
-}
-
-export function serializeProtocolExport(state: {
-  morning: ProtocolState['morning']
-  daytime: ProtocolState['daytime']
-  evening: ProtocolState['evening']
-  status: ProtocolStatus
-  dailyQuestProgress: DailyQuestProgress | null
-  archives: ProtocolSnapshot[]
-}): string {
-  const payload = {
-    version: PROTOCOL_EXPORT_VERSION,
-    morning: state.morning,
-    daytime: state.daytime,
-    evening: state.evening,
-    status: state.status,
-    dailyQuestProgress: state.dailyQuestProgress,
-    archives: state.archives,
-  }
-  return `${JSON.stringify(payload, null, 2)}\n`
-}
-
-export function parseProtocolImport(
-  json: string,
-):
-  | { ok: true; data: ValidatedProtocolImport }
-  | { ok: false; error: string } {
-  let parsed: unknown
-  try {
-    parsed = JSON.parse(json) as unknown
-  } catch {
-    return { ok: false, error: 'Invalid JSON' }
-  }
-  if (!isRecord(parsed)) {
-    return { ok: false, error: 'Backup must be a JSON object' }
-  }
-  if (parsed.version !== PROTOCOL_EXPORT_VERSION) {
-    return { ok: false, error: 'Unsupported backup version' }
-  }
-  if (!isRecord(parsed.morning)) {
-    return { ok: false, error: 'Invalid morning section' }
-  }
-  if (typeof parsed.morning.antiVision !== 'string') {
-    return { ok: false, error: 'Invalid morning section' }
-  }
-  if (typeof parsed.morning.vision !== 'string') {
-    return { ok: false, error: 'Invalid morning section' }
-  }
-  if (!isRecord(parsed.daytime) || !isStringRecord(parsed.daytime.interrupts)) {
-    return { ok: false, error: 'Invalid daytime section' }
-  }
-  if (!isRecord(parsed.evening)) {
-    return { ok: false, error: 'Invalid evening section' }
-  }
-  if (
-    typeof parsed.evening.mission !== 'string' ||
-    typeof parsed.evening.bossFight !== 'string' ||
-    typeof parsed.evening.quests !== 'string' ||
-    typeof parsed.evening.rules !== 'string'
-  ) {
-    return { ok: false, error: 'Invalid evening section' }
-  }
-  if (!isProtocolStatus(parsed.status)) {
-    return { ok: false, error: 'Invalid status' }
-  }
-  if (!validateDailyProgress(parsed.dailyQuestProgress)) {
-    return { ok: false, error: 'Invalid daily quest progress' }
-  }
-  if (!Array.isArray(parsed.archives)) {
-    return { ok: false, error: 'Invalid archives' }
-  }
-  for (const item of parsed.archives) {
-    if (!validateSnapshot(item)) {
-      return { ok: false, error: 'Invalid archive entry' }
-    }
-  }
-
-  return {
-    ok: true,
-    data: {
-      morning: {
-        antiVision: parsed.morning.antiVision,
-        vision: parsed.morning.vision,
-      },
-      daytime: { interrupts: { ...parsed.daytime.interrupts } },
-      evening: {
-        mission: parsed.evening.mission,
-        bossFight: parsed.evening.bossFight,
-        quests: parsed.evening.quests,
-        rules: parsed.evening.rules,
-      },
-      status: parsed.status,
-      dailyQuestProgress: parsed.dailyQuestProgress,
-      archives: parsed.archives as ProtocolSnapshot[],
-    },
-  }
-}
+const EXPORT_FILENAME = 'life-reboot-protocol-backup.json'
 
 export function Settings() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dialogRef = useRef<HTMLDialogElement>(null)
   const titleId = useId()
+  const importInputId = useId()
   const [importError, setImportError] = useState<string | null>(null)
 
   const morning = useStore((s) => s.morning)
@@ -188,7 +39,7 @@ export function Settings() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `life-reboot-protocol-backup.json`
+    a.download = EXPORT_FILENAME
     a.rel = 'noopener'
     document.body.appendChild(a)
     a.click()
@@ -260,18 +111,23 @@ export function Settings() {
           >
             {t('settings.export')}
           </button>
-          <label className="inline-block cursor-pointer border-2 border-brutal-black bg-brutal-white px-4 py-2 font-mono text-xs font-bold uppercase tracking-wide text-brutal-black hover:bg-brutal-black hover:text-brutal-white">
-            <span>{t('settings.import')}</span>
-            <input
-              type="file"
-              accept="application/json,.json"
-              className="sr-only"
-              onChange={(e) => {
-                handleImportFile(e.target.files?.[0])
-                e.target.value = ''
-              }}
-            />
+          <label
+            htmlFor={importInputId}
+            className="inline-block cursor-pointer border-2 border-brutal-black bg-brutal-white px-4 py-2 font-mono text-xs font-bold uppercase tracking-wide text-brutal-black hover:bg-brutal-black hover:text-brutal-white"
+          >
+            {t('settings.import')}
           </label>
+          <input
+            id={importInputId}
+            data-testid="settings-import-input"
+            type="file"
+            accept="application/json,.json"
+            className="sr-only"
+            onChange={(e) => {
+              handleImportFile(e.target.files?.[0])
+              e.target.value = ''
+            }}
+          />
         </div>
         {importError ? (
           <p role="alert" className="font-sans text-sm text-red-800">
