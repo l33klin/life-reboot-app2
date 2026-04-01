@@ -7,6 +7,7 @@ The "Life Reboot Protocol" is a web application inspired by Dan Koe's article "H
 
 ## 2. Architecture & Technical Stack
 * **Frontend Framework**: React (via Next.js static export or Vite) + Tailwind CSS.
+* **Internationalization (i18n)**: Support for English and Simplified Chinese (EN/ZH-CN) with a persistent toggle. All prompts, UI text, and generated calendar events must be localized.
 * **Data Storage**: Local-first architecture. All user data is stored exclusively in the browser using `IndexedDB` (via a wrapper like `localforage` or Zustand's persist middleware) to avoid `localStorage` size limits and provide robust structured storage.
 * **Backend**: None. The application is completely serverless to guarantee absolute privacy.
 * **Integrations**: `ics` library for generating downloadable calendar events for the "Daytime Interrupts".
