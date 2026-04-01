@@ -7,6 +7,7 @@ import {
   Routes,
 } from 'react-router-dom'
 import { Layout } from './components/Layout'
+import { Landing } from './pages/Landing/Landing'
 import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Reflect } from './pages/Reflect/Reflect'
 import { Settings } from './pages/Settings/Settings'
@@ -17,7 +18,6 @@ import { useStore } from './store/useStore'
 
 function HomeRedirect() {
   const { t } = useTranslation()
-  const status = useStore((s) => s.status)
   const [hydrated, setHydrated] = useState(() =>
     useStore.persist.hasHydrated(),
   )
@@ -44,10 +44,7 @@ function HomeRedirect() {
     )
   }
 
-  if (status === 'completed') {
-    return <Navigate to="/dashboard" replace />
-  }
-  return <Navigate to="/wizard" replace />
+  return <Landing />
 }
 
 function App() {

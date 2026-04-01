@@ -15,27 +15,25 @@ describe('App', () => {
     await useStore.persist.rehydrate()
   })
 
-  it('redirects home to wizard when protocol is in progress', async () => {
+  it('renders landing page when protocol is in progress', async () => {
     render(<App />)
     await waitFor(
       () => {
         expect(
-          screen.getByRole('heading', {
-            name: /psychological excavation/i,
-          }),
+          screen.getByText(/Most people try to build a great life/i),
         ).toBeInTheDocument()
       },
       { timeout: 5000 },
     )
   })
 
-  it('redirects home to dashboard when protocol is completed', async () => {
+  it('renders landing page with dashboard link when protocol is completed', async () => {
     useStore.setState({ status: 'completed' })
     render(<App />)
     await waitFor(
       () => {
         expect(
-          screen.getByRole('heading', { name: /dashboard/i }),
+          screen.getByText(/Go to Dashboard/i),
         ).toBeInTheDocument()
       },
       { timeout: 5000 },
