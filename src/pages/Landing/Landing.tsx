@@ -4,7 +4,7 @@ import { ArticleZh } from './ArticleZh'
 import { useTranslation } from 'react-i18next'
 
 export function Landing() {
-  const { t, i18n } = useTranslation()
+  const { i18n } = useTranslation()
   const status = useStore((s) => s.status)
   const isZh = i18n.language.startsWith('zh')
 
