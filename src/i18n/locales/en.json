@@ -32,6 +32,22 @@
       "calendarHint": "Download the calendar file and import it into your calendar app. Each event links back here so you can answer the prompt in this tab.",
       "download": "Download Calendar Events",
       "next": "Continue to Evening Synthesis"
+    },
+    "evening": {
+      "title": "Evening synthesis",
+      "subtitle": "Review what surfaced today, then lock in your game plan.",
+      "reviewHeading": "What you wrote today",
+      "synthesisHeading": "Your framework",
+      "notAnswered": "—",
+      "missionLabel": "1-year mission",
+      "missionDescription": "The north-star outcome you are playing for this year.",
+      "bossFightLabel": "1-month boss fight",
+      "bossFightDescription": "The main obstacle or project you will defeat this month.",
+      "questsLabel": "Daily quests (levers)",
+      "questsDescription": "Small repeatable actions that move the needle every day.",
+      "rulesLabel": "Rules (constraints)",
+      "rulesDescription": "Non-negotiables that protect your focus and integrity.",
+      "complete": "Complete protocol"
     }
   },
   "reflect": {

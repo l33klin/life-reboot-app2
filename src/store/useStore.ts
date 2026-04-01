@@ -63,6 +63,8 @@ export const initialProtocolState: ProtocolState = {
 type ProtocolActions = {
   setMorning: (partial: Partial<ProtocolState['morning']>) => void
   setDaytimeInterrupt: (questionKey: string, answer: string) => void
+  setEvening: (partial: Partial<ProtocolState['evening']>) => void
+  completeProtocol: () => void
 }
 
 type Store = ProtocolState & ProtocolActions
@@ -79,6 +81,9 @@ export const useStore = create<Store>()(
             interrupts: { ...s.daytime.interrupts, [questionKey]: answer },
           },
         })),
+      setEvening: (partial) =>
+        set((s) => ({ evening: { ...s.evening, ...partial } })),
+      completeProtocol: () => set({ status: 'completed' }),
     }),
     {
       name: 'protocol-state',

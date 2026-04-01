@@ -32,6 +32,22 @@
       "calendarHint": "下载日历文件并导入你的日历应用。每个事件会链接回本页，方便你在当前标签作答。",
       "download": "下载日历事件",
       "next": "继续：晚间整合"
+    },
+    "evening": {
+      "title": "晚间整合",
+      "subtitle": "回顾今天浮现的内容，然后定下你的游戏化框架。",
+      "reviewHeading": "你今天写下的内容",
+      "synthesisHeading": "你的框架",
+      "notAnswered": "—",
+      "missionLabel": "一年任务",
+      "missionDescription": "这一年要达成的北极星结果。",
+      "bossFightLabel": "月度 Boss 战",
+      "bossFightDescription": "这个月要攻克的主要障碍或项目。",
+      "questsLabel": "日常任务（杠杆）",
+      "questsDescription": "每天都能推进局面的小而重复的行动。",
+      "rulesLabel": "规则（约束）",
+      "rulesDescription": "保护专注与底线的不可妥协项。",
+      "complete": "完成协议"
     }
   },
   "reflect": {
