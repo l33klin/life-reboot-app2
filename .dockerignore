@@ -1,0 +1,14 @@
+node_modules
+dist
+.git
+.gitignore
+.env
+.env.*
+README.md
+Dockerfile
+.dockerignore
+docs/
+agent-tools/
+agent-transcripts/
+.superpowers/
+test_*.py
