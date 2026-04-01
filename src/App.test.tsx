@@ -33,7 +33,7 @@ describe('App', () => {
     await waitFor(
       () => {
         expect(
-          screen.getByText(/Go to Dashboard/i),
+          screen.getAllByText(/Go to Dashboard/i)[0],
         ).toBeInTheDocument()
       },
       { timeout: 5000 },

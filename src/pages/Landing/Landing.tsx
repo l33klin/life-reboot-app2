@@ -82,6 +82,21 @@ export function Landing() {
           </div>
         )}
       </div>
+
+      {/* Bottom CTA */}
+      <div className="border-t-4 border-brutal-black pt-12 pb-24 text-center">
+        <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-8">
+          {isZh ? '准备好开始了吗？' : 'Ready to begin?'}
+        </h2>
+        <Link
+          to={status === 'completed' ? '/dashboard' : '/wizard?step=1'}
+          className="inline-block bg-brutal-black text-brutal-white border-4 border-brutal-black px-10 py-5 font-mono font-black text-xl uppercase tracking-widest hover:bg-transparent hover:text-brutal-black transition-colors"
+        >
+          {status === 'completed'
+            ? (isZh ? '进入控制台 (Dashboard)' : 'Go to Dashboard')
+            : (isZh ? '开始人生重启协议' : 'Start Life Reboot Protocol')}
+        </Link>
+      </div>
     </div>
   )
 }
