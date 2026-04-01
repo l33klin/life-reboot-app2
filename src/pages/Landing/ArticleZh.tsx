@@ -5,6 +5,14 @@ export function ArticleZh() {
         <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-4">如何在1天内彻底修复你的人生</h1>
         <p className="text-xl font-mono text-brutal-black/60 uppercase tracking-widest">在2026年之前做这件事</p>
         <p className="mt-6 font-bold">作者：DAN KOE</p>
+        <a
+          href="https://letters.thedankoe.com/p/how-to-fix-your-entire-life-in-1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block mt-4 font-bold underline hover:text-red-600 transition-colors"
+        >
+          阅读 Dan Koe 英文原文
+        </a>
       </header>
 
       <p>你很可能会放弃你的新年决心。</p>
@@ -36,6 +44,15 @@ export function ArticleZh() {
 
       <h2 className="text-2xl font-bold mt-12 mb-4 border-l-4 border-brutal-black pl-4">三、你之所以没有达到你想要的高度，是因为你害怕去那里</h2>
       <p>这是你如何成为今天的你，以及你将如何成为明天的你的过程。这就是身份的解剖学：</p>
+      
+      <figure className="my-8 border-2 border-brutal-black p-2 bg-brutal-black/5">
+        <img 
+          src="https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbefe4764-cb9d-4415-a39e-4ddfe4164106_1000x672.jpeg" 
+          alt="Anatomy of Identity" 
+          className="w-full h-auto"
+        />
+      </figure>
+
       <ol className="list-decimal list-inside space-y-2 ml-4">
         <li>你想要实现一个目标</li>
         <li>你通过该目标的镜头感知现实</li>
@@ -67,6 +84,15 @@ export function ArticleZh() {
 
       <h2 className="text-2xl font-bold mt-12 mb-4 border-l-4 border-brutal-black pl-4">七、把你的人生变成一场电子游戏</h2>
       <p>现在，将你所有的洞察组织成一个连贯的计划可能会有所帮助。写下这6个组成部分：</p>
+      
+      <figure className="my-8 border-2 border-brutal-black p-2 bg-brutal-black/5">
+        <img 
+          src="https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6d235caf-992b-46be-b190-2507005ad52d_1150x364.jpeg" 
+          alt="Turn Your Life Into A Video Game" 
+          className="w-full h-auto"
+        />
+      </figure>
+
       <ul className="list-disc list-inside space-y-2 ml-4 font-bold">
         <li>反愿景 (Anti-vision) – 什么是你生存的祸根，或者你再也不想经历的生活？</li>
         <li>愿景 (Vision) – 什么是你认为你想要的理想生活？</li>
