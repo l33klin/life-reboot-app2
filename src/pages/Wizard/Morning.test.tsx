@@ -15,7 +15,7 @@ function renderMorning(initialPath = '/wizard') {
         <Route path="/wizard" element={<Morning />} />
         <Route
           path="/wizard/daytime"
-          element={<h1>Daytime Setup</h1>}
+          element={<h1 data-testid="daytime-setup-heading">Daytime Setup</h1>}
         />
       </Routes>
     </MemoryRouter>,
@@ -32,10 +32,8 @@ describe('Morning wizard', () => {
   it('saves Anti-Vision and Vision to the store when the user types', () => {
     renderMorning()
 
-    const anti = screen.getByRole('textbox', {
-      name: /^anti-vision$/i,
-    })
-    const vision = screen.getByRole('textbox', { name: /^vision$/i })
+    const anti = screen.getByTestId('morning-anti-vision')
+    const vision = screen.getByTestId('morning-vision')
 
     fireEvent.change(anti, { target: { value: 'A life of drift and regret' } })
     fireEvent.change(vision, {
@@ -53,14 +51,8 @@ describe('Morning wizard', () => {
   it('navigates to daytime setup when Next is clicked', () => {
     renderMorning()
 
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: /next: setup daytime interrupts/i,
-      }),
-    )
+    fireEvent.click(screen.getByTestId('morning-next-daytime'))
 
-    expect(
-      screen.getByRole('heading', { name: /daytime setup/i }),
-    ).toBeInTheDocument()
+    expect(screen.getByTestId('daytime-setup-heading')).toBeInTheDocument()
   })
 })

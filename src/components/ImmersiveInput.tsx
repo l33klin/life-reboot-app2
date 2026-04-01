@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
   type ChangeEvent,
+  type FocusEvent,
   type ReactNode,
   type TextareaHTMLAttributes,
 } from 'react'
@@ -66,6 +67,8 @@ export function ImmersiveInput({
   onChange,
   id: idProp,
   className = '',
+  onFocus: onFocusProp,
+  onBlur: onBlurProp,
   ...textareaProps
 }: ImmersiveInputProps) {
   const reactId = useId()
@@ -90,17 +93,18 @@ export function ImmersiveInput({
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e.target.value)
-    resize()
   }
 
-  const handleFocus = () => {
+  const handleFocus = (e: FocusEvent<HTMLTextAreaElement>) => {
     onTextareaFocus()
     ctx?.setActiveId(id)
+    onFocusProp?.(e)
   }
 
-  const handleBlur = () => {
+  const handleBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
     ctx?.setActiveId(null)
     scheduleChromeCheck()
+    onBlurProp?.(e)
   }
 
   return (
@@ -130,9 +134,6 @@ export function ImmersiveInput({
         ref={textareaRef}
         id={id}
         value={value}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
         rows={1}
         aria-describedby={description ? `${id}-desc` : undefined}
         className={[
@@ -143,6 +144,9 @@ export function ImmersiveInput({
           className,
         ].join(' ')}
         {...textareaProps}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
     </div>
   )

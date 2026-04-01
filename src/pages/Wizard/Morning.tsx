@@ -27,12 +27,14 @@ export function Morning() {
       <ImmersiveFieldGroup>
         <div className="mt-12 space-y-16">
           <ImmersiveInput
+            data-testid="morning-anti-vision"
             label={t('wizard.morning.antiVisionLabel')}
             description={t('wizard.morning.antiVisionDescription')}
             value={antiVision}
             onChange={(v) => setMorning({ antiVision: v })}
           />
           <ImmersiveInput
+            data-testid="morning-vision"
             label={t('wizard.morning.visionLabel')}
             description={t('wizard.morning.visionDescription')}
             value={vision}
@@ -44,6 +46,7 @@ export function Morning() {
       <div className="immersive-wizard-chrome mt-16 transition-opacity duration-300">
         <button
           type="button"
+          data-testid="morning-next-daytime"
           onClick={() => navigate('/wizard/daytime')}
           className="border-2 border-brutal-black bg-brutal-white px-6 py-3 font-mono text-sm font-bold uppercase tracking-tight text-brutal-black transition-colors hover:bg-brutal-black hover:text-brutal-white"
         >
