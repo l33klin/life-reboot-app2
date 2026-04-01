@@ -31,23 +31,26 @@ describe('Morning wizard', () => {
     renderMorning()
 
     const anti = screen.getByTestId('morning-anti-vision')
-    const vision = screen.getByTestId('morning-vision')
-
     fireEvent.change(anti, { target: { value: 'A life of drift and regret' } })
+    expect(useStore.getState().morning.antiVision).toBe(
+      'A life of drift and regret',
+    )
+
+    // Go to next step
+    fireEvent.click(screen.getByTestId('morning-next-daytime'))
+
+    const vision = screen.getByTestId('morning-vision')
     fireEvent.change(vision, {
       target: { value: 'Focused craft and deep relationships' },
     })
 
-    expect(useStore.getState().morning.antiVision).toBe(
-      'A life of drift and regret',
-    )
     expect(useStore.getState().morning.vision).toBe(
       'Focused craft and deep relationships',
     )
   })
 
-  it('navigates to daytime setup when Next is clicked', () => {
-    renderMorning()
+  it('navigates to daytime setup when Next is clicked on step 2', () => {
+    renderMorning('/wizard?step=2')
 
     fireEvent.click(screen.getByTestId('morning-next-daytime'))
 

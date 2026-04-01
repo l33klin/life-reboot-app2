@@ -13,6 +13,8 @@
     "loading": "Loading saved progress…"
   },
   "wizard": {
+    "back": "Back",
+    "next": "Next",
     "morning": {
       "title": "Psychological excavation",
       "subtitle": "Define what you refuse and what you are moving toward.",

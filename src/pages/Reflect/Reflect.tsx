@@ -20,7 +20,6 @@ export function Reflect() {
   )
   const setDaytimeInterrupt = useStore((s) => s.setDaytimeInterrupt)
 
-  const [draft, setDraft] = useState('')
   const [saved, setSaved] = useState(false)
 
   const question = useMemo(() => {
@@ -29,17 +28,15 @@ export function Reflect() {
   }, [q, t])
 
   useEffect(() => {
-    if (!q) return
-    setDraft(stored)
-  }, [q, stored])
+    if (saved) {
+      const timer = setTimeout(() => setSaved(false), 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [saved])
 
-  useEffect(() => {
-    setSaved(false)
-  }, [q])
-
-  function handleSave() {
+  function handleChange(v: string) {
     if (!q) return
-    setDaytimeInterrupt(q, draft)
+    setDaytimeInterrupt(q, v)
     setSaved(true)
   }
 
@@ -58,11 +55,11 @@ export function Reflect() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="immersive-wizard-chrome transition-opacity duration-300">
+      <div className="transition-opacity duration-300">
         <h1 className="font-mono text-2xl font-bold uppercase tracking-tight text-brutal-black">
           {t('reflect.title')}
         </h1>
-        <p className="mt-4 font-sans text-base text-brutal-black">
+        <p className="mt-4 font-sans text-xl font-bold text-brutal-black">
           {question}
         </p>
       </div>
@@ -73,29 +70,18 @@ export function Reflect() {
             data-testid="reflect-answer"
             label={t('reflect.answerLabel')}
             description={t('reflect.answerDescription')}
-            value={draft}
-            onChange={(v) => {
-              setSaved(false)
-              setDraft(v)
-            }}
+            value={stored}
+            onChange={handleChange}
           />
         </div>
       </ImmersiveFieldGroup>
 
-      <div className="immersive-wizard-chrome mt-10 space-y-4">
-        <button
-          type="button"
-          data-testid="reflect-save"
-          onClick={handleSave}
-          className="border-2 border-brutal-black bg-brutal-black px-6 py-3 font-mono text-sm font-bold uppercase tracking-tight text-brutal-white transition-colors hover:bg-brutal-white hover:text-brutal-black"
-        >
-          {t('reflect.save')}
-        </button>
+      <div className="mt-10 space-y-4 h-10">
         {saved ? (
           <p
             role="status"
             data-testid="reflect-saved"
-            className="font-sans text-sm text-green-800"
+            className="font-sans text-sm text-green-800 transition-opacity duration-500"
           >
             {t('reflect.saved')}
           </p>

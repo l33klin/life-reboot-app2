@@ -103,14 +103,20 @@ describe('Evening synthesis', () => {
       screen.getByTestId('evening-mission'),
       'One year: ship the product',
     )
+    await user.click(screen.getByTestId('evening-complete')) // Next
+
     await user.type(
       screen.getByTestId('evening-boss-fight'),
       'Finish the core loop',
     )
+    await user.click(screen.getByTestId('evening-complete')) // Next
+
     await user.type(
       screen.getByTestId('evening-quests'),
       'Deep work block daily',
     )
+    await user.click(screen.getByTestId('evening-complete')) // Next
+
     await user.type(
       screen.getByTestId('evening-rules'),
       'No phone before noon',
@@ -133,10 +139,15 @@ describe('Evening synthesis', () => {
     renderEvening()
 
     await user.type(screen.getByTestId('evening-mission'), 'Mission text')
-    await user.type(screen.getByTestId('evening-boss-fight'), 'Boss text')
-    await user.type(screen.getByTestId('evening-quests'), 'Quest text')
-    await user.type(screen.getByTestId('evening-rules'), 'Rules text')
+    await user.click(screen.getByTestId('evening-complete'))
 
+    await user.type(screen.getByTestId('evening-boss-fight'), 'Boss text')
+    await user.click(screen.getByTestId('evening-complete'))
+
+    await user.type(screen.getByTestId('evening-quests'), 'Quest text')
+    await user.click(screen.getByTestId('evening-complete'))
+
+    await user.type(screen.getByTestId('evening-rules'), 'Rules text')
     await user.click(screen.getByTestId('evening-complete'))
 
     expect(useStore.getState().status).toBe('completed')

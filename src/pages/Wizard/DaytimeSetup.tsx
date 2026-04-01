@@ -57,23 +57,32 @@ export function DaytimeSetup() {
         <p>{t('wizard.daytime.calendarHint')}</p>
       </div>
 
-      <div className="immersive-wizard-chrome mt-12 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+      <div className="immersive-wizard-chrome mt-12 flex flex-col gap-4 sm:flex-row sm:flex-wrap justify-between">
         <button
           type="button"
-          data-testid="daytime-download-ics"
-          onClick={handleDownloadIcs}
+          onClick={() => navigate('/wizard?step=2')}
           className="border-2 border-brutal-black bg-brutal-white px-6 py-3 font-mono text-sm font-bold uppercase tracking-tight text-brutal-black transition-colors hover:bg-brutal-black hover:text-brutal-white"
         >
-          {t('wizard.daytime.download')}
+          {t('wizard.back', 'Back')}
         </button>
-        <button
-          type="button"
-          data-testid="daytime-next-evening"
-          onClick={() => navigate('/wizard/evening')}
-          className="border-2 border-brutal-black bg-brutal-black px-6 py-3 font-mono text-sm font-bold uppercase tracking-tight text-brutal-white transition-colors hover:bg-brutal-white hover:text-brutal-black"
-        >
-          {t('wizard.daytime.next')}
-        </button>
+        <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+          <button
+            type="button"
+            data-testid="daytime-download-ics"
+            onClick={handleDownloadIcs}
+            className="border-2 border-brutal-black bg-brutal-white px-6 py-3 font-mono text-sm font-bold uppercase tracking-tight text-brutal-black transition-colors hover:bg-brutal-black hover:text-brutal-white"
+          >
+            {t('wizard.daytime.download')}
+          </button>
+          <button
+            type="button"
+            data-testid="daytime-next-evening"
+            onClick={() => navigate('/wizard/evening')}
+            className="border-2 border-brutal-black bg-brutal-black px-6 py-3 font-mono text-sm font-bold uppercase tracking-tight text-brutal-white transition-colors hover:bg-brutal-white hover:text-brutal-black"
+          >
+            {t('wizard.daytime.next')}
+          </button>
+        </div>
       </div>
     </div>
   )
