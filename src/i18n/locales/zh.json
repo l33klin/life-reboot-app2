@@ -11,5 +11,16 @@
   },
   "home": {
     "loading": "正在加载已保存的进度…"
+  },
+  "wizard": {
+    "morning": {
+      "title": "心理挖掘",
+      "subtitle": "写下你拒绝的人生，以及你正在走向的人生。",
+      "antiVisionLabel": "反愿景",
+      "antiVisionDescription": "你拒绝过上的那种生活。",
+      "visionLabel": "愿景",
+      "visionDescription": "你正在建立的生活。",
+      "next": "下一步：设置日间打断"
+    }
   }
 }

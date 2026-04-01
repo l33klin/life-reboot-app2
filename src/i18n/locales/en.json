@@ -11,5 +11,16 @@
   },
   "home": {
     "loading": "Loading saved progress…"
+  },
+  "wizard": {
+    "morning": {
+      "title": "Psychological excavation",
+      "subtitle": "Define what you refuse and what you are moving toward.",
+      "antiVisionLabel": "Anti-vision",
+      "antiVisionDescription": "The life you refuse to live.",
+      "visionLabel": "Vision",
+      "visionDescription": "The life you are building.",
+      "next": "Next: Setup Daytime Interrupts"
+    }
   }
 }

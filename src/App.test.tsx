@@ -20,7 +20,9 @@ describe('App', () => {
     await waitFor(
       () => {
         expect(
-          screen.getByRole('heading', { name: /wizard/i }),
+          screen.getByRole('heading', {
+            name: /psychological excavation/i,
+          }),
         ).toBeInTheDocument()
       },
       { timeout: 5000 },

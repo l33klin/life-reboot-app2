@@ -10,4 +10,13 @@
   #root {
     @apply min-h-screen;
   }
+
+  html.immersive-input-active header,
+  html.immersive-input-active [role='alert'] {
+    @apply pointer-events-none opacity-0 transition-opacity duration-300;
+  }
+
+  html.immersive-input-active .immersive-wizard-chrome {
+    @apply pointer-events-none opacity-0 transition-opacity duration-300;
+  }
 }

@@ -7,6 +7,7 @@ import {
   Routes,
 } from 'react-router-dom'
 import { Layout } from './components/Layout'
+import { Morning } from './pages/Wizard/Morning'
 import { useStore } from './store/useStore'
 
 function HomeRedirect() {
@@ -60,7 +61,11 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<HomeRedirect />} />
-          <Route path="/wizard" element={<Placeholder title="Wizard" />} />
+          <Route path="/wizard" element={<Morning />} />
+          <Route
+            path="/wizard/daytime"
+            element={<Placeholder title="Daytime Setup" />}
+          />
           <Route path="/reflect" element={<Placeholder title="Reflect" />} />
           <Route path="/dashboard" element={<Placeholder title="Dashboard" />} />
           <Route path="*" element={<Navigate to="/" replace />} />
