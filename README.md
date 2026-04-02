@@ -15,6 +15,7 @@
 - **游戏化控制台 (Gamified Dashboard)**：将你的“反愿景”和“愿景”作为驱动力，把日常任务转化为游戏中的“打怪升级”。
 - **多语言支持 (i18n)**：支持中英文无缝切换，并自动保存语言偏好。
 - **数据备份**：支持将你的协议数据导出为 JSON 文件，或从 JSON 文件导入以实现跨设备迁移。
+- **域名访问限制 (Allowed Hosts)**：支持通过环境变量配置允许访问的域名，增强部署安全性。
 
 ## 🚀 快速开始 (本地开发)
 
@@ -32,7 +33,12 @@ cd life-reboot-app2
 # 2. 安装依赖
 npm install
 
-# 3. 启动开发服务器
+# 3. 配置环境变量 (可选)
+cp .env.example .env
+# 编辑 .env 文件，设置 VITE_ALLOWED_HOSTS 以限制允许访问的域名，例如：
+# VITE_ALLOWED_HOSTS=localhost,127.0.0.1,yourdomain.com
+
+# 4. 启动开发服务器
 npm run dev
 ```
 打开浏览器访问 `http://localhost:5173` 即可体验。

@@ -1,7 +1,7 @@
 import { Outlet, Link } from 'react-router-dom'
 import { LanguageToggle } from './LanguageToggle'
 import { PrivateBrowsingWarning } from './PrivateBrowsingWarning'
-import { Settings } from 'lucide-react'
+import { Settings, Github } from 'lucide-react'
 
 export function Layout() {
   return (
@@ -13,6 +13,15 @@ export function Layout() {
         </Link>
         <div className="flex items-center gap-4">
           <LanguageToggle />
+          <a 
+            href="https://github.com/l33klin/life-reboot-app2" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="p-2 hover:bg-brutal-black hover:text-brutal-white transition-colors" 
+            aria-label="GitHub Repository"
+          >
+            <Github size={20} />
+          </a>
           <Link to="/settings" className="p-2 hover:bg-brutal-black hover:text-brutal-white transition-colors" aria-label="Settings">
             <Settings size={20} />
           </Link>
